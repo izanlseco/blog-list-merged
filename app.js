@@ -1,18 +1,26 @@
-const config = require('./utils/config')
 const express = require('express')
 require('express-async-errors')
+
 const app = express()
 const cors = require('cors')
+const mongoose = require('mongoose')
 const loginRouter = require('./controllers/login')
 const blogRouter = require('./controllers/blogs')
 const userRouter = require('./controllers/users')
 const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
-const mongoose = require('mongoose')
+
+const config = require('./utils/config')
 
 logger.info('Connecting to', config.MONGODB_URI)
 
-mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true })
+mongoose
+  .connect(config.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
   .then(() => {
     logger.info('Connected to MongoDB')
   })
@@ -30,6 +38,7 @@ app.use('/api/blogs', blogRouter)
 app.use('/api/users', userRouter)
 
 if (process.env.NODE_ENV === 'test') {
+  // eslint-disable-next-line global-require
   const testingRouter = require('./controllers/testing')
   app.use('/api/testing', testingRouter)
 }

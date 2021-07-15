@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-underscore-dangle */
 const mongoose = require('mongoose')
 const uniqueValidator = require('mongoose-unique-validator')
 
@@ -15,8 +17,8 @@ const userSchema = new mongoose.Schema({
   },
   blogs: [
     {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Blog',
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Blog',
     },
   ],
 })

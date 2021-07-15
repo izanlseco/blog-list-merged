@@ -23,20 +23,20 @@ blogRouter.post('/', async (request, response) => {
     title: body.title,
     author: body.author,
     url: body.url,
-    likes: body.likes !== undefined ? body.likes: 0,
-    user: user._id
+    likes: body.likes !== undefined ? body.likes : 0,
+    user: user.id,
   })
-  
+
   const savedBlog = await blog.save()
-  user.blogs = user.blogs.concat(savedBlog._id)
+  user.blogs = user.blogs.concat(savedBlog.id)
   await user.save()
 
-  response.status(201).json(savedBlog)
+  return response.status(201).json(savedBlog)
 })
 
 blogRouter.delete('/:id', async (request, response) => {
   const verifiedToken = jwt.verify(request.token, process.env.SECRET)
-  
+
   if (!request.token || !verifiedToken.id) {
     return response.status(401).json({ error: 'token invalid or missing.' })
   }
@@ -44,12 +44,14 @@ blogRouter.delete('/:id', async (request, response) => {
   const decodedToken = jwt.decode(request.token)
   const userWithBlogs = await User.findById(decodedToken.id)
 
-  if(!userWithBlogs.blogs.includes(request.params.id)) {
-    return response.status(401).json({ error: 'user unauthorized to remove this blog' })
+  if (!userWithBlogs.blogs.includes(request.params.id)) {
+    return response
+      .status(401)
+      .json({ error: 'user unauthorized to remove this blog' })
   }
 
   await Blog.findByIdAndRemove(request.params.id)
-  response.status(204).end()
+  return response.status(204).end()
 })
 
 blogRouter.put('/:id', async (request, response) => {
@@ -59,7 +61,9 @@ blogRouter.put('/:id', async (request, response) => {
     likes: body.likes,
   }
 
-  const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, { new: true })
+  const updatedBlog = await Blog.findByIdAndUpdate(request.params.id, blog, {
+    new: true,
+  })
   response.json(updatedBlog)
 })
 
