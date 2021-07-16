@@ -158,4 +158,6 @@ describe('when updating a blog', () => {
 
 afterAll(() => {
   mongoose.connection.close()
+  jest.clearAllMocks()
+  jest.resetAllMocks()
 })

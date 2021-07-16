@@ -11,7 +11,7 @@
     "deploy:full": "npm run build:ui && git add . && git commit -m uibuild && npm run deploy",
     "logs:prod": "heroku logs --tail",
     "eslint": "eslint .",
-    "test": "NODE_ENV=test jest --verbose --runInBand",
+    "test": "NODE_ENV=test jest --runInBand",
     "start:test": "cross-env NODE_ENV=test node index.js"
   },
   "author": "Izan <IzanLS09@gmail.com>",
@@ -44,6 +44,7 @@
     "mongoose-unique-validator": "^2.0.3"
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "testTimeout": 120000
   }
 }

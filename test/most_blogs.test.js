@@ -62,3 +62,8 @@ describe('The author with most blogs', () => {
     expect(result).toEqual(mostBlogsAuthor)
   })
 })
+
+afterAll(() => {
+  jest.clearAllMocks()
+  jest.resetAllMocks()
+})

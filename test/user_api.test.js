@@ -85,4 +85,6 @@ describe('When there is initially one user', () => {
 
 afterAll(() => {
   mongoose.connection.close()
+  jest.clearAllMocks()
+  jest.resetAllMocks()
 })
