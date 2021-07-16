@@ -78,3 +78,8 @@ describe('Total likes', () => {
     expect(result).toBe(36)
   })
 })
+
+afterAll(() => {
+  jest.clearAllMocks()
+  jest.resetAllMocks()
+})

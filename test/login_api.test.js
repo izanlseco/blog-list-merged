@@ -55,4 +55,6 @@ describe('when a user logins', () => {
 
 afterAll(() => {
   mongoose.connection.close()
+  jest.clearAllMocks()
+  jest.resetAllMocks()
 })

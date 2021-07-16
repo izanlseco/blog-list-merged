@@ -62,3 +62,8 @@ describe('The author with most likes', () => {
     expect(result).toEqual(mostLikedAuthor)
   })
 })
+
+afterAll(() => {
+  jest.clearAllMocks()
+  jest.resetAllMocks()
+})

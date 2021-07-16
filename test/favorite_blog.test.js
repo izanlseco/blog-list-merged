@@ -66,3 +66,8 @@ describe('The favorite blog', () => {
     expect(result).toEqual(listWithOneBlog)
   })
 })
+
+afterAll(() => {
+  jest.clearAllMocks()
+  jest.resetAllMocks()
+})
